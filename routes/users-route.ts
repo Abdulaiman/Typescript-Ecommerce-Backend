@@ -1,7 +1,7 @@
 const express = require("express");
 const Router = express.Router();
-import { testing } from "../controllers/auth-controller";
+import { signUP } from "../controllers/auth-controller";
 
-Router.route("/").get(testing);
+Router.route("/sign-up").post(signUP);
 
 module.exports = Router;
