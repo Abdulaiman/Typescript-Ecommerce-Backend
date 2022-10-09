@@ -1,4 +1,5 @@
 import { model, Schema, Types } from "mongoose";
+const bcrypt = require("bcrypt");
 const validator = require("validator");
 
 interface Iuser {
@@ -6,6 +7,7 @@ interface Iuser {
   email: String;
   password: String;
   cart: Types.ObjectId;
+  correctPassword: (candidatePassword: String, password: String) => boolean;
 }
 
 const UserSchema = new Schema<Iuser>({
@@ -23,6 +25,18 @@ const UserSchema = new Schema<Iuser>({
     type: Schema.Types.ObjectId,
   },
 });
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) next();
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+
+UserSchema.methods.correctPassword = async (
+  candidatePassword: String,
+  password: String
+) => {
+  return await bcrypt.compare(candidatePassword, password);
+};
 
 const User = model<Iuser>("User", UserSchema);
 export default User;
