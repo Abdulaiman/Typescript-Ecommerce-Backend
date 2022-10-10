@@ -1,8 +1,8 @@
 const express = require("express");
 
 import { Request, Response } from "express";
-const userRouter = require("./routes/users-route");
-const productRouter = require("./routes/products-route");
+const userRouter = require("./src/routes/users-route");
+const productRouter = require("./src/routes/products-route");
 
 const app = express();
 app.use(express.json());
