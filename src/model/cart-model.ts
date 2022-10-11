@@ -1,4 +1,4 @@
-import { model, Schema, Types } from "mongoose";
+import mongoose, { model, Schema, Types } from "mongoose";
 import { Iproducts as Icarts } from "./products-model";
 
 const CartSchema = new Schema<Icarts>({
@@ -11,6 +11,9 @@ const CartSchema = new Schema<Icarts>({
   price: String,
   description: String,
   image: String,
+  user: {
+    type: Schema.Types.ObjectId,
+  },
 });
-const cart = model<Icarts>("Cart", CartSchema);
-export default cart;
+const Cart = model<Icarts>("Cart", CartSchema);
+export default Cart;

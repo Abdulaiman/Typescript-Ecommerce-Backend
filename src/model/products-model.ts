@@ -6,6 +6,7 @@ export interface Iproducts {
   price: String;
   description: String;
   image: String;
+  user?: Types.ObjectId;
 }
 
 const ProductsSchema = new Schema<Iproducts>({
